@@ -47,6 +47,33 @@ module.exports.getBooks = (callback, limit) => {
 };
 
 //Get Single Book
-module.exports.getBookById = (book, callback) => {
+module.exports.getBookById = (id, callback) => {
     Book.findById(id, callback);
+}
+
+//Add Single Book
+module.exports.addBook = (book, callback) => {
+    Book.create(book, callback);
+};
+
+//Update Book
+module.exports.updateBook = (id, book, options, callback) => {
+    var query = {_id: id},
+        update = {
+            title: book.title,
+            genre: book.genre,
+            description: book.description,
+            author: book.author,
+            publisher: book.publisher,
+            paperback: book.paperback,
+            images: book.images,
+            buyAt: book.buyAt
+        };
+    Book.findOneAndUpdate(query, update, options, callback);
+};
+
+//Delete Book
+module.exports.deleteBook = (id, callback) => {
+    var query = {_id: id};
+    Book.remove(query, callback);
 }
